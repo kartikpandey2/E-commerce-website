@@ -10,7 +10,7 @@ export default class Thumbnail extends Component{
     }
 
     handleBuy(){
-	    var Url = "http://localhost:3000/pay";
+	    var Url = "/pay";
 	    fetch(Url,
 	    {
 	      method: "POST",

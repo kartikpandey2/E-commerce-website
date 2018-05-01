@@ -18,7 +18,7 @@ export default class Homepage extends Component{
 	}
 
 	handleLogout(){
-		 var Url = "http://localhost:3000/logout";
+		 var Url = "/logout";
 	    fetch(Url,
 	    {
 	      method: "GET",

@@ -29,7 +29,7 @@ export default class Login extends Component {
   }
 
   handleSubmit(event){
-    var Url = "http://localhost:3000/login";
+    var Url = "/login";
   
     fetch(Url,
     {

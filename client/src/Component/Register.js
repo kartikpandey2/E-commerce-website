@@ -38,7 +38,7 @@ class Register extends Component {
   }
 
   handleSubmit(event){
-    var Url = "http://localhost:3000/register";
+    var Url = "/register";
   
     fetch(Url,
     {

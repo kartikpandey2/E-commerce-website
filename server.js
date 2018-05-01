@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const bcrypt   = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
 const Mongostore = require('connect-mongo')(session);
-const port=process.env.PORT || 3000;
+const port=process.env.PORT || 8000;
 const dbURL=process.env.MONGODB_URI || 'mongodb://localhost/ecommerce';
 const cors = require('cors');
 const paypal = require('paypal-rest-sdk');
@@ -27,7 +27,7 @@ resave: false ,
 saveUninitialized: false
 }));
 
-
+app.use(express.static(path.join(__dirname, "client", "build")))
 app.use(passport.initialize());
 app.use(passport.session()); 
 app.use(cors());
