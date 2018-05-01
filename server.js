@@ -12,6 +12,7 @@ const port=process.env.PORT || 8000;
 const dbURL=process.env.MONGODB_URI || 'mongodb://localhost/ecommerce';
 const cors = require('cors');
 const paypal = require('paypal-rest-sdk');
+const path = require('path');
 
 const saltRounds = 10;
 //middleware
