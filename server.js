@@ -215,6 +215,10 @@ app.get('/logout',function(req,res){
 	res.send({success:true})
 });
 
+app.get("*", (req, res) => {  
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+
 //server listening
 app.listen(port,function(){
 	console.log(`Server is running at port:${port}`);
