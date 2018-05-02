@@ -66,52 +66,52 @@ export default class Homepage extends Component{
 
 const data =[{
 		Name:"Pendrive",
-		src:"pendrive.JPG",
+		src:"pendrive.jpg",
 		price:"10rs"
 	},
 	{
 		Name:"IPhone",		
-		src:"iPhone.JPG",
+		src:"iPhone.jpg",
 		price:"10rs"
 	},
 	{
 		Name:"Macbook Pro",
-		src:"macbook-pro.JPG",
+		src:"macbook-pro.jpg",
 		price:"10rs"
 	},
 	{
 		Name:" Macbook Air",
-		src:"macbook-air.JPG",
+		src:"macbook-air.jpg",
 		price:"10rs"
 	},
 	{
 		Name: "Tv",
-		src:"TV.JPG",
+		src:"TV.jpg",
 		price:"10rs"
 	},
 	{
 		Name: "Washing Machine",
-		src:"Washing-Machine.JPG",
+		src:"Washing-Machine.jpg",
 		price:"10rs"
 	},
 	{
 		Name: "Bean Bag",
-		src:"bean-bag.JPG",
+		src:"bean-bag.jpg",
 		price:"10rs"
 	},
 	{
 		Name:" Water Purifier",
-		src:"water-purifier-1.JPG",
+		src:"water-purifier-1.jpg",
 		price:"10rs"
 	},
 	{
 		Name: "Table",
-		src:"table.JPG",
+		src:"table.jpg",
 		price:"10rs"
 	},
 	{
 		Name: "Bed",
-		src:"Bed.JPG",
+		src:"Bed.jpg",
 		price:"10rs"
 	},
 ]
