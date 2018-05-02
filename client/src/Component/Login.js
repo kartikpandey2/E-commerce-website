@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { Redirect } from 'react-router-dom';
+import { Redirect ,Link} from 'react-router-dom';
 
 
 export default class Login extends Component {
@@ -84,6 +84,7 @@ export default class Login extends Component {
                <br/>
                <RaisedButton label="Submit" primary={true} style={style} onClick={this.handleSubmit}/>
            </div>
+            <Link to="/register">Click to Register</Link>
            </MuiThemeProvider>
         </div>
       );

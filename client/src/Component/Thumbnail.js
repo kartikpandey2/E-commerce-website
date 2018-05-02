@@ -34,7 +34,7 @@ export default class Thumbnail extends Component{
 		return(
 			<div className="thumbnail">
 				<div className="image-div">
-					<img src={`../../static/${this.props.image}`} alt="" width="130" height="110"/ >
+					<img src={this.props.image} alt="" width="130" height="110"/ >
 				</div>
 				<div className="content">
 					<h5>{this.props.name}</h5>
