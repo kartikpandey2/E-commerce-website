@@ -12,13 +12,13 @@ export default class Homepage extends Component{
 		super(props);
 		this.state = {
 			item:data,
-			login:false
+			login:true
 		}
 		this.handleLogout = this.handleLogout.bind(this)
 	}
 
 	handleLogout(){
-		 var Url = "/logout";
+		const Url = "/logout";
 	    fetch(Url,
 	    {
 	      method: "GET",
@@ -43,6 +43,10 @@ export default class Homepage extends Component{
     	const Display = this.state.item.map((item,index)=>{
    			return (<Thumbnail key={item.Name} name={item.Name} price={item.price} image={item.src} ></Thumbnail>)
    		})
+
+   		if(!this.state.login){
+   			return(<Redirect to='/' />)
+   		}
 
 
     	return(<div className="main-contaniner">
