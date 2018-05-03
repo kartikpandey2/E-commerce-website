@@ -28,3 +28,12 @@
 .brand{
 	display: inline-block;
 }
+
+
+@media (max-width:425px){
+  .category-container{
+	display: none;
+	float: left;
+	width: 20%;
+}
+}

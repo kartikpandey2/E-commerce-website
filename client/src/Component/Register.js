@@ -38,7 +38,7 @@ class Register extends Component {
   }
 
   handleSubmit(event){
-    const = "/register";
+    const Url = "/register";
   
     fetch(Url,
     {
