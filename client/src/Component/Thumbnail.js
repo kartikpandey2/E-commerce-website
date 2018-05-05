@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import './thumbnail.css';
+import { Redirect } from 'react-router-dom';
 
 
 export default class Thumbnail extends Component{
     constructor(props){
     	super(props)
+    	this.state = {
+    		redirect:false
+    	}
     	this.handleBuy = this.handleBuy.bind(this)
     }
 
@@ -16,14 +20,20 @@ export default class Thumbnail extends Component{
 	      method: "POST",
 	      headers : { 
 	        'Accept': 'application/json',
+	        'x-access-token': sessionStorage.getItem('token')
 	       }
 	    })
 	    .then((res)=>{ 
 	    	return res.json();
 	    })
 	    .then((data)=>{
-	    	console.log(data)
-	    	window.location = data.link;
+	    	if(data.success){
+	    		window.location = data.link;
+	    	}
+	    	else{
+	    		alert('please login')
+	    		this.setState({redirect:true})
+	    	}
 	    })
 	    .catch((err)=>{
 	    	throw err
@@ -31,6 +41,9 @@ export default class Thumbnail extends Component{
     }
 
 	render(){
+		if(this.state.redirect){
+   			return(<Redirect to='/' />)
+   		}
 		return(
 			<div className="thumbnail">
 				<div className="image-div">

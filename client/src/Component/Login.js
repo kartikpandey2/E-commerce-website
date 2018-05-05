@@ -47,6 +47,7 @@ export default class Login extends Component {
       return res.json(); })
     .then((data)=>{
         if(data.success){
+          sessionStorage.setItem('token', data.token);
           this.setState({redirect:true})
       }
       else{

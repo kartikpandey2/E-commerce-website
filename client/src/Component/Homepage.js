@@ -11,37 +11,36 @@ export default class Homepage extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			item:data,
+			item:[],
 			login:true
 		}
 		this.handleLogout = this.handleLogout.bind(this)
 	}
 
 	handleLogout(){
-		const Url = "/logout";
+		sessionStorage.setItem('token','');
+		this.setState({login:false})
+	}
+
+	componentDidMount(){
+		var Url = "http://localhost:8000/items";
 	    fetch(Url,
 	    {
 	      method: "GET",
 	      headers : { 
 	        'Accept': 'application/json',
+	        'x-access-token': sessionStorage.getItem('token')
 	       }
 	    })
-	    .then((res)=>{ 
-	    	return res.json();
-	    })
-	    .then((data)=>{
-	    	if(data.success){
-	    		this.setState({login:false})
-	    	}
-	    })
-	    .catch((err)=>{
-	    	throw err
+	    .then((res)=> res.json())
+	    .then((result)=>{
+	    	this.setState({item:result.data})
 	    })
 	}
 
     render(){
     	const Display = this.state.item.map((item,index)=>{
-   			return (<Thumbnail key={item.Name} name={item.Name} price={item.price} image={item.src} ></Thumbnail>)
+   			return (<Thumbnail key={item.Name} name={item.Name} price={item.Price} image={item.ImageUrl} ></Thumbnail>)
    		})
 
    		if(!this.state.login){
@@ -67,55 +66,3 @@ export default class Homepage extends Component{
     		</div>)
     }
 }
-
-const data =[{
-		Name:"Pendrive",
-		src:"pendrive.jpg",
-		price:"10rs"
-	},
-	{
-		Name:"IPhone",		
-		src:"iPhone.jpg",
-		price:"10rs"
-	},
-	{
-		Name:"Macbook Pro",
-		src:"macbook-pro.jpg",
-		price:"10rs"
-	},
-	{
-		Name:" Macbook Air",
-		src:"macbook-air.jpg",
-		price:"10rs"
-	},
-	{
-		Name: "Tv",
-		src:"TV.jpg",
-		price:"10rs"
-	},
-	{
-		Name: "Washing Machine",
-		src:"Washing-Machine.jpg",
-		price:"10rs"
-	},
-	{
-		Name: "Bean Bag",
-		src:"bean-bag.jpg",
-		price:"10rs"
-	},
-	{
-		Name:" Water Purifier",
-		src:"water-purifier-1.jpg",
-		price:"10rs"
-	},
-	{
-		Name: "Table",
-		src:"table.jpg",
-		price:"10rs"
-	},
-	{
-		Name: "Bed",
-		src:"Bed.jpg",
-		price:"10rs"
-	},
-]

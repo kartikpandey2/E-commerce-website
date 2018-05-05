@@ -11,6 +11,7 @@ export default ()=>{
 			<Route path ='/' exact component={Login} />
 			<Route path ='/register' exact component={Register} />
 			<Route path ='/homepage' exact component={Homepage} />
+			<Route path ='/success'  component={Homepage} />
 			<Route path ='*' exact component={NotFound} />
 		</Switch>
 	</BrowserRouter>)
