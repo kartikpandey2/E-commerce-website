@@ -37,7 +37,7 @@ module.exports = (req,res)=>{
 	        	if(payment.links[i].rel === 'approval_url'){
 	        		res.header("Access-Control-Allow-Origin", "*");
  					res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	        		res.send({"success": true,"link":payment.links[i].href});
+	        		res.json({"success": true,"link":payment.links[i].href});
 	        	}
 	        }
 	    }

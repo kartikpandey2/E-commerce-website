@@ -27,21 +27,21 @@ module.exports = (req,res)=>{
 		new_user.save(function(err){
 			if(err){
 				if(err.code === 11000){
-					res.send({success:false,msg:"Username taken"});
+					res.json({success:false,msg:"Username taken"});
 				}
 				else{
-					res.send({success:false,msg:err});
+					res.json({success:false,msg:err});
 					console.log(err)
 				}
 			}
 			else{
-				res.send({success: true, msg: 'Successful user registration'})
+				res.json({success: true, msg: 'Successful user registration'})
 			}
 		})	 
 	}
 		// if data is empty
 	else{
-		res.send({success: false, msg: 'enter all fields'})
+		res.json({success: false, msg: 'enter all fields'})
 	}
 
 }

@@ -20,7 +20,7 @@ module.exports = (req,res)=>{
 		    throw error;
 		} else {
 		    console.log("Get Payment Response");
-		    res.send({success: true, msg: 'Payment acknowledged'});
+		    res.json({success: true, msg: 'Payment acknowledged'});
 		}
 	});
 	
