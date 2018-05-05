@@ -23,7 +23,7 @@ export default class Homepage extends Component{
 	}
 
 	componentDidMount(){
-		var Url = "http://localhost:8000/items";
+		var Url = "/items";
 	    fetch(Url,
 	    {
 	      method: "GET",
