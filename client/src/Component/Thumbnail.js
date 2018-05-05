@@ -19,7 +19,7 @@ export default class Thumbnail extends Component{
 	    {
 	      method: "POST",
 	      headers : { 
-	      	'Content-Type': 'application/json'
+	      	'Content-Type': 'application/json',
 	        'Accept': 'application/json',
 	        'x-access-token': sessionStorage.getItem('token')
 	       }
