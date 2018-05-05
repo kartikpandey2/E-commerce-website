@@ -13,7 +13,7 @@ const saltRounds = 10;
 //middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "../client/build")))
+app.use(express.static(path.join(__dirname, "client/build")))
 app.use(cors());
 
 
@@ -33,7 +33,7 @@ const routes = require('./routes/routes.js')
 routes(app)
 
 app.get("*", (req, res) => {  
-    res.sendFile(path.join(__dirname, "../client", "build", "index.html"));
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 //server listening
