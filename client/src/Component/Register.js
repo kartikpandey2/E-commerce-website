@@ -1,115 +1,74 @@
-import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { Card, Input, Button } from "antd";
+import Fetch from "../helpers/fetch";
+
 class Register extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      first_name:'',
-      last_name:'',
-      username:'',
-      password:'',
-      redirect:false
+    this.state = {
+      first_name: "",
+      last_name: "",
+      username: "",
+      password: "",
+      redirect: false
+    };
+  }
+
+  handleChangeState = (key, value) => {
+    this.setState({
+      [key]: value
+    });
+  };
+
+  handleSubmit = async () => {
+    try {
+      const Url = "/register";
+      const body = JSON.stringify(this.state);
+      const res = Fetch(Url, { body });
+      if (res.success) {
+        this.handleChangeState("redirect", true);
+      } else {
+        alert("enter all fields");
+      }
+    } catch (err) {
+      console.log(err);
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePassword =this.handlePassword.bind(this);
-    this.handleUsername = this.handleUsername.bind(this);
-    this.handlefirst_name = this.handlefirst_name.bind(this);
-    this.handlelast_name = this.handlelast_name.bind(this);
-  }
-
-  handleUsername(event){
-    this.setState({username:event.target.value});
-  }
-
-  handlePassword(event){
-    this.setState({password:event.target.value});
-  }
-
-  handlefirst_name(event){
-    this.setState({first_name:event.target.value});
-  }
-
-  handlelast_name(event){
-    this.setState({last_name:event.target.value});
-  }
-
-  handleSubmit(event){
-    const Url = "/register";
-  
-    fetch(Url,
-    {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        "username":this.state.username,
-        "password":this.state.password,
-        "firstName":this.state.first_name,
-        "lastName":this.state.last_name
-      })
-    })
-    .then((res)=>{ return res.json(); })
-    .then((data)=>{
-        if(data.success){
-          this.setState({redirect:true})
-        }
-        else{
-          alert('enter all fields')
-        }
-      })
-  }
+  };
 
   render() {
-    if(this.state.redirect){
-      return(<Redirect to='/' />)
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
     }
     return (
-      <div>
-        <MuiThemeProvider>
-          <div>
-          <AppBar
-             title="Register"
-           />
-           <TextField
-             hintText="Enter your First Name"
-             floatingLabelText="First Name"
-             onChange = {this.handlefirst_name}
-             />
-           <br/>
-           <TextField
-             hintText="Enter your Last Name"
-             floatingLabelText="Last Name"
-             onChange = {this.handlelast_name}
-             />
-           <br/>
-           <TextField
-             hintText="Enter your username"
-             type="email"
-             floatingLabelText="username"
-             onChange = {this.handleUsername}
-             />
-           <br/>
-           <TextField
-             type = "password"
-             hintText="Enter your Password"
-             floatingLabelText="Password"
-             onChange = {this.handlePassword}
-             />
-           <br/>
-           <RaisedButton label="Submit" primary={true} style={style} onClick={this.handleSubmit}/>
-          </div>
-         </MuiThemeProvider>
-      </div>
+      <Card title="Register" style={{ width: 400 }}>
+        <Input
+          placeholder="Enter your First Name"
+          onChange={e => this.handleChangeState("first_name", e.target.value)}
+          style={style}
+        />
+        <Input
+          placeholder="Enter your Last Name"
+          onChange={e => this.handleChangeState("last_name", e.target.value)}
+          style={style}
+        />
+        <Input
+          placeholder="Enter your Username"
+          onChange={e => this.handleChangeState("username", e.target.value)}
+          style={style}
+        />
+        <Input
+          type="password"
+          placeholder="Enter your Password"
+          onChange={e => this.handleChangeState("password", e.target.value)}
+          style={style}
+        />
+        <Button onClick={this.handleSubmit}>Submit</Button>
+      </Card>
     );
   }
 }
 const style = {
-  margin: 15,
+  margin: 15
 };
 export default Register;

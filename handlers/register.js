@@ -1,47 +1,33 @@
-const User = require('../models/database.js').User;
-const bcrypt = require('bcrypt-nodejs');
+const User = require("../models/userSchema");
+const bcrypt = require("bcryptjs");
+const salt = bcrypt.genSaltSync(10);
 
-
-module.exports = (req,res)=>{
-	//getting data
-	const username = req.body.username
-	const password = req.body.password
-	const firstName = req.body.firstName
-	const lastName = req.body.lastName
-	 //if data is not empty
-	if(username&&password&&firstName&&lastName){
-		const new_user = User();
-		new_user.FirstName = firstName;
-		new_user.LastName = lastName;
-		new_user.Username = username;
-		//hashing password
-		bcrypt.hash(password,null,null, function(err, hash) {
-			if(err){
-				console.log(err);
-			}
-			else{
-			 	new_user.Password = hash;
-			}
-		})
-		//saving data
-		new_user.save(function(err){
-			if(err){
-				if(err.code === 11000){
-					res.json({success:false,msg:"Username taken"});
-				}
-				else{
-					res.json({success:false,msg:err});
-					console.log(err)
-				}
-			}
-			else{
-				res.json({success: true, msg: 'Successful user registration'})
-			}
-		})	 
-	}
-		// if data is empty
-	else{
-		res.json({success: false, msg: 'enter all fields'})
-	}
-
-}
+module.exports = async (req, res) => {
+  try {
+    console.log(req.body);
+    const { username, password } = req.body;
+    const firstName = req.body.first_name;
+    const lastName = req.body.last_name;
+    if (username && password && firstName && lastName) {
+      const hashedPassword = bcrypt.hashSync(password, salt);
+      console.log(username);
+      const new_user = new User({
+        FirstName: firstName,
+        LastName: lastName,
+        Username: username,
+        Password: hashedPassword
+      });
+      const savedUser = await new_user.save();
+      res.json({ success: true, msg: "Successful user registration" });
+    } else {
+      res.json({ success: false, msg: "enter all fields" });
+    }
+  } catch (err) {
+    console.log(err);
+    if (err.code == 11000) {
+      res.json({ success: false, msg: "Username taken" });
+    } else {
+      res.json({ success: false, msg: "Something went Wrong" });
+    }
+  }
+};

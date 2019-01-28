@@ -1,30 +1,30 @@
-const User = require('../models/database.js').User;
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt-nodejs');
- 
+const User = require("../models/userSchema");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
-module.exports =  (req,res)=>{
-	const username = req.body.username;
-	const password = req.body.password;
-	User.findOne({Username:username})
-	.then((user)=>{
-		bcrypt.compare(password, user.Password, function(err, result){
-		  	if(result){
-			   	let token = jwt.sign(
-				   	{
-				   		username,
-				   		id : user.id
-				   	},
-				   	'abcdefghi',
-			   	)
-			   	res.send({success:true, message:'Login success', token})
-		    }
-		  	else{
-		   		res.send({ success: false, message: 'Authentication failed. Wrong password.' });
-		  	} 
-		});
-	})
-	.catch((err)=>{
-		console.log(err)
-	})
-}
+module.exports = async (req, res) => {
+  try {
+    const username = req.body.username;
+    const password = req.body.password;
+    const foundUser = await User.findOne({ Username: username });
+    const passwordIsValid = bcrypt.compareSync(password, foundUser.Password);
+    if (passwordIsValid) {
+      const token = jwt.sign(
+        {
+          username,
+          id: foundUser.id
+        },
+        "abcdefghi"
+      );
+      res.json({ success: true, msg: "Login success", token });
+    } else {
+      throw new Error("Invalid Password");
+    }
+  } catch (err) {
+    console.log(err);
+    res.json({
+      success: false,
+      msg: "Authentication failed. Wrong password."
+    });
+  }
+};
